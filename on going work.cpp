@@ -136,8 +136,11 @@ void student::SearchStudent()
 	    	cout<<"\n\t\t______________________________________"<<endl;	
 		}	
 	}
-	if(found)
-	
+	fin.close();
+	if(found==0)
+	{
+		cout<<"\n\t\tRecord not found\n"<<endl;
+	}
 }
 void student::EditStudentDetails()
 {

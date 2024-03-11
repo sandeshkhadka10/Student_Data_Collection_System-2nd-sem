@@ -73,12 +73,46 @@ void student::AddStudent()
 void student::DisplayAllStudent()
 {
 	system("cls");
+	int recordsfound=0;
+	student obj;
+	
 	cout<<"\t\t\t\t\t<== Student Records ==>\n\n"<<endl;
 	
 	ifstream fin;
 	fin.open("studentdata",ios::binary);
 	fin.seekg(0,ios::beg);
-	while
+	while(fin.read(char*)&obj,sizeof(obj))
+	{
+		recordsfound=1;
+		cout<<"\n\t\tStudent Name: "<<obj.name<<endl;
+		cout<<"\n\t\tId: "<<obj.id<<endl;
+		cout<<"\n\t\tClass and Semester: "<<obj.year<<endl;
+		cout<<"\n\t\tAddress: "<<obj.address<<endl;
+		cout<<"\n\t\tEmail: "<<obj.email<<endl;
+		cout<<"\n\t\tPhone number: "<<obj.phonenumber<<endl;
+		cout<<"\n\t\tGPA: "<<obj.gpa<<endl;
+		cout<<"\n\t\tTotal Amount: "<<obj.totalAmount<<endl;
+		cout<<"\n\t\tPaid Amount: "<<obj.paidAmount<<endl;
+		cout<<"\n\t\tDue Amount: "<<obj.dueAmount<<endl;
+		cout<<"\n\t\t______________________________________"<<endl;
+	}
+	fin.close();
+	if(recordsfound==0)
+	{
+		cout<<"\n\t\tNo data found!!!!!"<<endl;
+	}
+}
+void student::EditStudentDetails()
+{
+	system("cls");
+	cout<<"\t\t\t\t\t<== Edit Student Details ==>\n\n"<<endl;
+	
+	int id=0,found=0,updated=0;
+	cout<<"\t\tEnter Id to edit: "<<endl;
+	cin>>id;
+	
+	student obj;
+	
 	
 }
 

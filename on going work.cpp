@@ -29,6 +29,7 @@ class student
 		void SearchStudent();
 		void EditStudentDetails();
 		void DeleteStudent();
+		int login();
 };
 void student::AddStudent()
 {
@@ -323,7 +324,55 @@ void student::EditStudentDetails()
 }
 void student::DeleteStudent()
 {
+	int found=0;
 	
+	student obj;
+	
+	system("cls");
+	
+	cout<<"\t\t\t\t\t<== Delete Student Record ==>\n\n";
+	
+	cout<<"\t\tEnter the Id you want to delete: ";
+	cin>>search;
+	
+	ifstream fin;
+	fin.open(filename,ios::binary);
+	if(!fin)
+	{
+		cout<<"\t\tUnable to open file.\n";
+		return;
+	}
+	ofstream fout;
+	fout.open("temp_student_data",ios::binary | ios::app);
+	if(!fout)
+	{
+		cout<<"\t\tUnable to open file.\n";
+	}
+	fin.seekg(0,ios::beg)
+	{
+		if(obj.id==search)
+		{
+			found=1;
+			continue;
+		}
+		else
+		{
+			fout.write((char*)&obj,sizeof(obj));
+		}
+		
+	}
+	fin.close();
+	fout.close();
+	remove(filename);
+	rename("temp_student_data",filename);
+	if(found==1)
+	{
+        cout<<"\t\tStudent with ID "<<search<<" deleted successfully.\n";
+    } 
+	else 
+	{
+        cout<<"\t\tStudent with ID "<<search<<" not found.\n";
+    }
 }
 	
 	

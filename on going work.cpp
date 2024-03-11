@@ -182,7 +182,7 @@ void student::EditStudentDetails()
 	cout<<"\t\tEnter Id to edit: "<<endl;
 	cin>>id;
 	
-	student obj;
+	student updated_student;
 	
 	fstream finout;
 	finout.open("studentdata",ios::in || ios::out | ios::binary);

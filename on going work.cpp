@@ -78,7 +78,7 @@ void student::DisplayAllStudent()
 	ifstream fin;
 	fin.open("studentdata",ios::binary);
 	fin.seekg(0,ios::beg);
-	whi
+	while
 	
 }
 

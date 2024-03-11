@@ -4,9 +4,13 @@
 #include<fstream>
 #include<conio.h>//for getch()
 #include<unistd.h>//for sleep()
+
+using namespace std;
+
+const string filename="students_records.dat";
 class student
 {
-	public:
+	private:
 		char name[50];
 		int id;
 		char year[50];
@@ -82,7 +86,7 @@ void student::DisplayAllStudent()
 	ifstream fin;
 	fin.open("studentdata",ios::binary);
 	fin.seekg(0,ios::beg);
-	while(fin.read(char*)&obj,sizeof(obj))
+	while(fin.read((char*)&obj,sizeof(obj)))
 	{
 		recordsfound=1;
 		cout<<"\n\t\tStudent Name: "<<obj.name<<endl;
@@ -160,7 +164,99 @@ void student::EditStudentDetails()
 	{
 		if(obj.id==id)
 		{
-			up
+			found=1;
+			int choice;
+			int repeatMenu=1;
+			do
+			{
+				system("cls");
+				cout<<"\t\t\t\t\t<== Edit Student Details ==>\n\n"<<endl;
+				cout<<"\t\tSelect Fields to update: \n"<<endl;
+				cout<<"\t\t1.Name\n"<<endl;
+				cout<<"\t\t2.ID\n"<<endl;
+				cout<<"\t\t3.Semester\n"<<endl;
+				cout<<"\t\t4.Address\n"<<endl;
+				cout<<"\t\t5.Email\n"<<endl;
+				cout<<"\t\t6.Phone Number\n"<<endl;
+				cout<<"\t\t7.GPA\n"<<endl;
+				cout<<"\t\t8.Paid Amount\n"<<endl;
+				cout<<"\t\t9.Exit\n"<<endl;
+				cout<<"\t\tEnter your choice(1-9): "<<endl;
+				cin>>choice;
+				fflush(stdin);
+				switch(choice)
+				{
+					case 1:
+						cout<<"\n\t\tEnter Updated Name: "<<endl;
+						fflush(stdin);
+						cin.getline(obj.name,sizeof(obj.name));
+						updated=1;
+						break;
+						
+					case 2:
+						cout<<"\n\t\tEnter Updated Id: "<<endl;
+						cin>>obj.id;
+						updated=1;
+						break;
+						
+					case 3:
+						cout<<"\n\t\tEnter Updated Semester: "<<endl;
+						fflush(stdin);
+						cin.getline(obj.year,sizeof(obj.year));
+						updated=1;
+						break;
+						
+					case 4:
+						cout<<"\n\t\tEnter Updated Address: "<<endl;
+						fflush(stdin);
+						cin.getline(obj.address,sizeof(obj.address));
+						updated=1;
+						break;
+						
+					case 5:
+						cout<<"\n\t\tEnter Updated Email: "<<endl;
+						fflush(stdin);
+						cin.getline(obj.email,sizeof(obj.email));
+						updated=1;
+						break;
+						
+					case 6:
+						cout<<"\n\t\tEnter Updated Phone number: "<<endl;
+						fflush(stdin);
+						cin.getline(obj.phonenumber,sizeof(obj.phonenumber));
+						updated=1;
+						break;
+						
+					case 7:
+						cout<<"\n\t\tEnter Updated GPA: "<<endl;
+						cin>>obj.gpa;
+						updated=1;
+						break;
+						
+					case 8:
+						cout<<"\n\t\tEnter Updated Payment Amount: "<<endl;
+						cin>>obj.paidAmount;
+						obj.dueAmount=obj.totalAmount-obj.paidAmount;
+						updated=1;
+						break;
+						
+					case 9:
+						if(updated==1)
+						{
+							cout<<"\n\t\tStudent details successfully updated.\n"<<endl;
+						}
+						else
+						{
+							cout<<"\n\t\tNo updates were made.\n"<<endl;					
+						}
+						repeatmenu=0;
+						break;
+						
+					default:
+						
+				}
+			}
+			
 		}
 	}
 	

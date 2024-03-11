@@ -8,6 +8,7 @@
 using namespace std;
 
 const string filename="students_records.dat";
+
 class student
 {
 	private:
@@ -21,6 +22,7 @@ class student
 		float totalAmount;
 		float paidAmount;
 		float dueAmount;
+		
 	public:
 		void AddStudent();
 		void DisplayAllStudent();
@@ -34,32 +36,34 @@ void student::AddStudent()
 	do
 	{	
 	   student obj;
+	   
 	   system("cls");
-	   cin.ignore();
+	   
 	   cout<<"\t\t\t\t\t<== Add Student Information ==>\n\n"<<endl;
 	
-	   cout<<"\n\t\tName: "<<endl;
+	   cout<<"\n\t\tName: "<<;
 	   cin.getline(obj.name,50);
 	
-    	cout<<"\n\t\tId no: "<<endl;
+    	cout<<"\n\t\tId no: "<<;
     	cin>>obj.id;
 	
-    	cout<<"\n\t\tCourse and Semester: "<<endl;
+    	cout<<"\n\t\tCourse and Semester: "<<;
+    	cin.ignore();
     	cin.getline(obj.year,50);
 	
-    	cout<<"\n\t\tAddress: "<<endl;
+    	cout<<"\n\t\tAddress: "<<;
     	cin.getline(obj.address,50);
 	
-    	cout<<"\n\t\tEmail: "<<endl;
+    	cout<<"\n\t\tEmail: "<<;
     	cin.getline(obj.email,50);
 	
-    	cout<<"\n\t\tPhone no: "<<endl;
+    	cout<<"\n\t\tPhone no: "<<;
     	cin.getline(obj.phonenumber,50);
 	
-    	cout<<"\n\t\tGPA: "<<endl;
+    	cout<<"\n\t\tGPA: "<<;
     	cin>>obj.gpa;
 	
-    	cout<<"\n\t\tPaid Amount: "<<endl;
+    	cout<<"\n\t\tPaid Amount: "<<;
     	cin>>obj.paidAmount;
 	
     	obj.totalAmount=790000;//fixed amount
@@ -68,23 +72,41 @@ void student::AddStudent()
     	cout<<"\t\t__________________________________________"<<endl;
 	
     	ofstream fout;
-    	fout.open("studentdata",ios::binary | ios::app);
+    	fout.open(filename,ios::binary | ios::app);
+    	if(!fout)
+    	{
+    		cout<<"\t\tUnable to open file.\n";
+    		return;
+		}
     	fout.write((char*)&obj,sizeof(obj));
     	cout<<"\n\t\tDetails added successfully"<<endl;
     	fout.close();
-	}while(another == 'y' || another=='Y')	
+    	
+    	cout<<"\n\t\tDo you want to add another record?(Press Y or y)";
+    	cin>>another;
+    	cin.ignore();
+    	
+	}while(another == 'y' || another=='Y');	
 }
 void student::DisplayAllStudent()
 {
-	system("cls");
-	int recordsfound=0;
-	
 	student obj;
+	
+	system("cls");
+	
+	int recordsfound=0;
 	
 	cout<<"\t\t\t\t\t<== Student Records ==>\n\n"<<endl;
 	
 	ifstream fin;
-	fin.open("studentdata",ios::binary);
+	fin.open(filename,ios::binary);
+	{
+		if(!fin)
+		{
+			cout<<"\t\tUnable to open file.\n";
+			return;
+		}
+	}
 	fin.seekg(0,ios::beg);
 	while(fin.read((char*)&obj,sizeof(obj)))
 	{
@@ -109,19 +131,24 @@ void student::DisplayAllStudent()
 }
 void student::SearchStudent()
 {
+	student obj;
+	
 	system("cls");
 	
 	int search=0,found=0;
 	
 	cout<<"\t\t\t\t\t<== Search Student ==>\n\n"<<endl;
 	
-	cout<<"Enter the Id you want to search: "<<endl;
+	cout<<"Enter the Id you want to search: "<<;
 	cin>>search;
 	
-	student obj;
-	
 	ifstream fin;
-	fin.open("studentdata",ios::binary);
+	fin.open(filename,ios::binary);
+	if(!fin)
+	{
+		cout<<"\t\tUnable to open file.\n";
+		return;
+	}
 	while(fin.read((char*)&obj,sizeof(obj)))
 	{
 		if(obj.id==search)

@@ -39,8 +39,7 @@ void student::AddStudent()
         student obj;
         system("cls");
         cin.ignore();
-        cout << "\t\t\t\t\t<== Add Student Information ==>\n\n"
-             << endl;
+        cout << "\t\t\t\t\t<== Add Student Information ==>\n\n"<< endl;
         cout << "\n\t\tName: ";
         cin.getline(obj.name, 50);
         cout << "\n\t\tId no: ";
@@ -65,11 +64,13 @@ void student::AddStudent()
 
         ofstream fout;
         fout.open(filename.c_str(), ios::binary | ios::app);
-        if (!fout)
-        {
-            cout << "\t\tUnable to open file.\n";
-            return;
-        }
+        if (!fout.is_open()) 
+		{
+   		 cout << "\t\tUnable to open file or file does not exist.\n";
+   		 cout << "\t\tPress any key to go back....." << endl;
+   		 getch();
+   		 return;
+    	}
         fout.write((char *)&obj, sizeof(obj));
         cout << "\n\t\tDetails added successfully" << endl;
         fout.close();
@@ -87,14 +88,15 @@ void student::DisplayAllStudent()
     student obj;
     system("cls");
     int recordsfound = 0;
-    cout << "\t\t\t\t\t<== Student Records ==>\n\n"
-         << endl;
+    cout << "\t\t\t\t\t<== Student Records ==>\n\n"<< endl;
     ifstream fin;
     fin.open(filename.c_str(), ios::binary);
-    if (!fin)
-    {
-        cout << "\t\tUnable to open file.\n";
-        return;
+    if (!fin.is_open()) 
+	{
+   	 cout << "\t\tUnable to open file or file does not exist.\n";
+   	 cout << "\t\tPress any key to go back....." << endl;
+   	 getch();
+   	 return;
     }
     fin.seekg(0, ios::beg);
     while (fin.read((char *)&obj, sizeof(obj)))
@@ -128,18 +130,19 @@ void student::SearchStudent()
 
     int search = 0, found = 0;
 
-    cout << "\t\t\t\t\t<== Search Student ==>\n\n"
-         << endl;
+    cout << "\t\t\t\t\t<== Search Student ==>\n\n" << endl;
 
-    cout << "Enter the Id you want to search: ";
+    cout << "\t\tEnter the Id you want to search: ";
     cin >> search;
 
     ifstream fin;
     fin.open(filename.c_str(), ios::binary);
-    if (!fin)
-    {
-        cout << "\t\tUnable to open file.\n";
-        return;
+    if (!fin.is_open()) 
+	{
+   	 cout << "\t\tUnable to open file or file does not exist.\n";
+   	 cout << "\t\tPress any key to go back....." << endl;
+   	 getch();
+   	 return;
     }
     while (fin.read((char *)&obj, sizeof(obj)))
     {
@@ -162,8 +165,7 @@ void student::SearchStudent()
     fin.close();
     if (found == 0)
     {
-        cout << "\n\t\tRecord not found\n"
-             << endl;
+        cout << "\n\t\tRecord not found\n";
     }
     cout << "\n\t\tPress any key to go back....." << endl;
     getch();
@@ -182,10 +184,12 @@ void student::EditStudentDetails()
 
     fstream finout;
     finout.open(filename.c_str(), ios::in | ios::out | ios::binary);
-    if (!finout)
-    {
-        cout << "\t\tUnable to open file.\n";
-        return;
+    if (!finout.is_open()) 
+	{
+   	 cout << "\t\tUnable to open file or file does not exist.\n";
+   	 cout << "\t\tPress any key to go back....." << endl;
+   	 getch();
+   	 return;
     }
 
     student obj;
@@ -200,11 +204,13 @@ void student::EditStudentDetails()
     }
 
     if (found == 0)
-    {
-        cout << "\n\t\tStudent with ID " << id << " not found.\n";
-        finout.close();
-        return;
-    }
+	{
+   	 cout << "\n\t\tStudent with ID " << id << " not found.\n";
+     finout.close();
+   	 cout << "\n\t\tPress any key to go back....." << endl;
+   	 getch();
+   	 return;
+	}
 
     int choice;
     int repeatMenu = 1;
@@ -284,13 +290,11 @@ void student::EditStudentDetails()
         case 9:
             if (updated == 1)
             {
-                cout << "\n\t\tStudent details successfully updated.\n"
-                     << endl;
+                cout << "\n\t\tStudent details successfully updated.\n"<< endl;
             }
             else
             {
-                cout << "\n\t\tNo updates were made.\n"
-                     << endl;
+                cout << "\n\t\tNo updates were made.\n" << endl;
             }
             repeatMenu = 0;
             break;
@@ -618,10 +622,10 @@ flag:
     }
     while (1)
     {
-        char choice;
+        char choice,x;
         student s;
         system("cls");
-        cout << "\t\t\t\t\t<== Student Management System ==>\n";
+        cout << "\t\t\t\t\t<== Student Data Collection And Management System ==>\n";
         cout << "\t\t*********************************************************************************\n";
         fflush(stdin);
         cout << "\n\t\ta. Add Student\n";
@@ -656,17 +660,27 @@ flag:
             break;
 
         case 'f':
-            system("cls");
-            exit(0);
+            cout<<"\t\tPress Y to exit and any other character to cancel: ";
+            fflush(stdin);
+            cin>>x;
+            if(x == 'Y' || x == 'y')
+            {
+            	exit(0);
+			}
+			else
+    		{
+    		    cout << "\t\tPlease enter appropriate option." << endl;
+   			    cout << "\t\tPress any key to go back to the menu....." << endl;
+   			    getch();
+    		}
+   			break;
+            
         default:
-            system("cls");
             cout << "\t\tInvalid Choice...." << endl;
-            cout << "\t\tPlease Enter from a to d" << endl;
+            cout << "\t\tPlease Enter from a to f" << endl;
             cout << "\n\t\tPress any key to go to menu....." << endl;
             getch();
-            break;
         }
     }
-
     return 0;
 }
